@@ -1,0 +1,30 @@
+version: "3.3"
+
+services:
+  web:
+    container_name: airnote
+    build:
+      context: .
+    command: >
+      sh -c "python Airnote/manage.py makemigrations &&
+               python Airnote/manage.py migrate &&
+               python Airnote/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/drf_src
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  db:
+    container_name: postgres
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=backend
+      - POSTGRES_PASSWORD=pa$$word
+      - POSTGRES_DB=backendDB
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  postgres_data:

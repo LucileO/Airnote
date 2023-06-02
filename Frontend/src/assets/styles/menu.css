@@ -1,0 +1,90 @@
+.my-switch {
+    padding-top: 6px;
+}
+
+.my-switch .form-switch {
+    margin: 3px 0px 0 15px;
+}
+
+/* CSS for the navigation panel */
+.menu-container {
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+    padding-right: 0.5em;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #000000;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+}
+
+.change .bar2 {
+    opacity: 0;
+}
+
+.change .bar3 {
+    transform: translate(0, -11px) rotate(45deg);
+}
+
+#theMenu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translate3d(-100vw, 0, 0);
+
+    width: 20vw;
+    height: 100vh;
+}
+
+#flyoutMenu {
+    top: 65px;
+    bottom: 0;
+    width: 15vw;
+    background-image: linear-gradient(135deg, #43cbff 30%, #9708cc 100%);
+    position: fixed;
+    left: 0;
+    transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+    overflow: scroll;
+    z-index: 1000;
+}
+
+#flyoutMenu.d {
+    color: #eee;
+    background-color: #eee;
+    background-image: linear-gradient(135deg, #039bc9 30%, #b715af 100%);
+}
+
+#flyoutMenu.hide {
+    transform: translate3d(-100vw, 0, 0);
+}
+
+#flyoutMenu.show {
+    transform: translate3d(0vw, 0, 0);
+    overflow: hidden;
+}
+
+#flyoutMenu h2 a {
+    color: #333;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+#flyoutMenu h2 a:hover {
+    text-decoration: underline;
+}
+
+.additionalComponent {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
