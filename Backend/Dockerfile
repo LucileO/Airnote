@@ -20,7 +20,7 @@ RUN apk update \
     && apk add postgresql-client
 RUN apk add git
 # Get the Real World example app
-RUN git clone https://github.com/Neakio/Airnote.git /drf_src
+RUN git clone https://github.com/LucileO/Airnote.git /drf_src
 
 
 # Install any needed packages specified in requirements.txt
