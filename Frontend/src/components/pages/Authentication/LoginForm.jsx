@@ -22,7 +22,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
                 <FormControl
                     label="Email"
                     type="text"
-                    placeholder="firstname.lastname@airbus.com"
+                    placeholder="firstname.lastname@airnote.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
