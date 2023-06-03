@@ -66,7 +66,7 @@ function UserForm({ title, handleSubmitUser, isEditing = false }) {
                     label="Email"
                     name="email"
                     type="email"
-                    placeholder="firstname.lastname@airbus.com"
+                    placeholder="firstname.lastname@airnote.com"
                     value={userData.email}
                     onChange={handleChange}
                     required
