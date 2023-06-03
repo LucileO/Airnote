@@ -4,7 +4,7 @@ FROM node:14-alpine as builder
 RUN apk update && apk add git
 
 # copy the package.json to install dependencies
-RUN git clone https://github.com/Neakio/Airnote.git -b test
+RUN git clone https://github.com/LucileO/Airnote.git -b main
 COPY package.json ./
 
 # Install the dependencies and make the folder
