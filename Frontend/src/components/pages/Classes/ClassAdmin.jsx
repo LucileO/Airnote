@@ -10,7 +10,7 @@ import ClassView from "./ClassView";
 import ClassesTable from "./ClassTableAdmin";
 import ClassUserForm from "./ClassUserForm";
 
-function Administration({ groups, fetchGroups, isAdmin, userId }) {
+function Administration({ groups, fetchGroups, isAdmin, userId, darkmode }) {
     const navigate = useNavigate();
 
     const removeClass = async (groupId) => {
@@ -33,11 +33,8 @@ function Administration({ groups, fetchGroups, isAdmin, userId }) {
             group.level,
             group.name,
             group.year,
-            group.isActive,
-            group.referent,
-            group.delegates,
-            group.students,
             group.modules,
+            group.isActive,           
         )
             .then(() => {
                 toastSuccess("Class successfully created");
@@ -56,7 +53,7 @@ function Administration({ groups, fetchGroups, isAdmin, userId }) {
             },
         );
     };
-    const addUser = (group, groupId) => {
+    const manageGroup = (group, groupId) => {
         //Check if the delegates are still in the group
         group.delegates = group.delegates.filter((student) => group.students.includes(student));
         classUser(
@@ -64,12 +61,13 @@ function Administration({ groups, fetchGroups, isAdmin, userId }) {
             group.level,
             group.name,
             group.year,
-            group.isActive,
+            group.modules,
             group.referent,
             group.delegates,
             group.students,
+
         ).then(() => {
-            toastSuccess("Successfully added");
+            toastSuccess("Successfully modified");
             redirectToGroup(groupId);
         });
     };
@@ -86,11 +84,7 @@ function Administration({ groups, fetchGroups, isAdmin, userId }) {
                                     <Button variant="success">Create class</Button>
                                 </Link>
                             </div>
-                            <ClassesTable
-                                groups={groups}
-                                removeClass={removeClass}
-                                userId={userId}
-                            />
+                            <ClassesTable groups={groups} removeClass={removeClass} darkmode={darkmode} userId={userId}/>
                         </Fragment>
                     }
                 />
@@ -100,8 +94,8 @@ function Administration({ groups, fetchGroups, isAdmin, userId }) {
                     element={<ClassForm title="Edit class" handleSubmitClass={modifyGroups} />}
                 />
                 <Route
-                    path="/:id/adduser"
-                    element={<ClassUserForm title="Manage class" handleSubmitClass={addUser} />}
+                    path="/:id/manageclass"
+                    element={<ClassUserForm title="Manage class" handleSubmitClass={manageGroup} />}
                 />
                 <Route
                     path="/create"

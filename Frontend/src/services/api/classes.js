@@ -9,7 +9,7 @@ export const getActiveClasses = (isActive) => {
 };
 
 export const getClassesByCourses = (courses) => {
-    return axios.get("api/groups?courses=" + courses);
+    return axios.get("api/groups?courses=" + courses + "&isActive=true");
 };
 
 export const getClassesByReferent = (userId) => {
@@ -51,15 +51,15 @@ export const editClass = (classId, level, name, year, modules, isActive) => {
     return axios.put("api/groups/" + classId, payload);
 };
 
-export const classUser = (classId, level, name, year, isActive, referent, delegates, students) => {
+export const classUser = (classId, level, name, year, modules, referent, delegates, students) => {
     let payload = {
         level,
-        name,
         year,
-        isActive,
+        name,
+        modules,
         referent,
         delegates,
-        students,
+        students,        
     };
     return axios.put("api/groups/" + classId, payload);
 };

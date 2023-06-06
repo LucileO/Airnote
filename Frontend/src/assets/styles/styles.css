@@ -4,6 +4,9 @@ body {
     height: 100%;
     --text-color-normal: #0a244d;
     --text-color-light: #8cabd9;
+    color: #121212 !important;
+    background: #f5f5f5 !important;
+    background-color: #f5f5f5 !important;
 }
 
 .app {
@@ -20,9 +23,14 @@ main {
 
 header {
     grid-area: header;
+    background-color: #e0e0e0;
     padding: 0.5rem;
 }
-
+header.dark {
+    grid-area: header;
+    background-color: #4d4d4d;
+    padding: 0.5rem;
+}
 footer {
     grid-area: footer;
     padding: 0.5rem;
@@ -30,8 +38,8 @@ footer {
 
 .dark {
     color: #eee !important;
-    background: #121212 !important;
-    background-color: #121212 !important;
+    background: #333333 !important;
+    background-color: #333333 !important;
 }
 
 h1 {
@@ -39,11 +47,16 @@ h1 {
     padding-bottom: 1rem;
 }
 
-.student {
-    outline: 0.5rem outset skyblue;
-    box-shadow: 0 0 0 2rem skyblue;
-    border-radius: 12px;
-    font: bold 1rem sans-serif;
-    padding: 1rem;
-    outline-offset: 0.5rem;
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote-container {
+    text-align: center;
+}
+
+.author {
+    text-align: right;
 }

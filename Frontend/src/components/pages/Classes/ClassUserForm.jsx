@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 import { getClass } from "../../../services/api/classes";
@@ -8,7 +8,6 @@ import { getUsersByRole } from "../../../services/api/users";
 import { Util } from "../../../services/Util";
 import { FormSelect } from "../../render-components/Form";
 import Loader from "../../render-components/Loader";
-import { getModules } from "../../../services/api";
 
 function ClassUserForm({ title, handleSubmitClass }) {
     const { id } = useParams();
@@ -17,7 +16,6 @@ function ClassUserForm({ title, handleSubmitClass }) {
         level: null,
         name: null,
         year: null,
-        isActive: true,
         referent: null,
         delegates: [],
         students: [],
@@ -31,7 +29,6 @@ function ClassUserForm({ title, handleSubmitClass }) {
         fetchReferents();
         fetchStudents();
     }, [id]);
-
     const fetchClass = async () => {
         let group = await getClass(id);
         group.referent = group.referent?.id;
@@ -99,9 +96,11 @@ function ClassUserForm({ title, handleSubmitClass }) {
                     isClearable
                     isMulti
                 />
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <Button variant="btn btn-outline-success me-md-2" type="submit">
+                        Submit
+                    </Button>
+                </div>
             </Form>
         </Fragment>
     );

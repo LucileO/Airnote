@@ -27,5 +27,5 @@ export const addGrade = (number, comment, course, student, group) => {
         student,
         group,
     };
-    return axios.post("api/grades/", payload);
+    return axios.post("api/grades", payload);
 };

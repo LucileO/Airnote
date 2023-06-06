@@ -11,7 +11,11 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing user instances.
     """
-    permission_classes = [IsAuthenticated & (IsAdministrator | IsAdminRef)]
+    permission_classes = [IsAuthenticated & (IsAdministrator | IsAdminRef | IsStudent)]
+    permission_classes_per_method = {
+        "list": [IsAuthenticated & (IsAdministrator | IsAdminRef)],
+        "retrieve": [IsAuthenticated & (IsAdministrator | IsAdminRef)]
+    }
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -32,7 +36,7 @@ class GroupViewSet(PermissionPolicyMixin, viewsets.ModelViewSet):
     """
     permission_classes = [IsAuthenticated & (IsAdministrator | IsAdminRef)]
     permission_classes_per_method = {
-        "list": [IsAuthenticated & (IsAdministrator | IsAdminRef | IsTeacher)],
+        "list": [IsAuthenticated & (IsAdministrator | IsAdminRef | IsTeacher | IsStudent)],
         "retrieve": [IsAuthenticated & (IsAdministrator | IsAdminRef | IsTeacher)]
     }
 
@@ -130,6 +134,7 @@ class GradeViewSet(PermissionPolicyMixin, viewsets.ModelViewSet):
         student_id = self.request.query_params.get('student')
         group_id = self.request.query_params.get('group')
         course_id = self.request.query_params.get('course')
+        queryset = Grade.objects.all()
         if course_id is not None and group_id is not None:
             queryset = Grade.objects.filter(group_id=group_id, course_id=course_id)
         if student_id is not None:

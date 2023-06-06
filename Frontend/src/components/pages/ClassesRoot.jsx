@@ -7,7 +7,7 @@ import Teacher from "./Classes/ClassTeacher";
 import GLOBALS from "../../Globals";
 import Error from "../render-components/Error";
 
-function Classes({ userRole, userId }) {
+function Classes({ userRole, userId, darkmode }) {
     const [groups, setGroups] = useState([]);
     const isAdmin = userRole && userRole.startsWith("Admin");
 
@@ -30,9 +30,10 @@ function Classes({ userRole, userId }) {
                     fetchGroups={fetchGroups}
                     isAdmin={isAdmin}
                     userId={userId}
+                    darkmode={darkmode}
                 />
             ) : (
-                <Teacher groups={groups} userId={userId} />
+                <Teacher groups={groups} userId={userId} darkmode={darkmode} />
             )}
         </Fragment>
     );

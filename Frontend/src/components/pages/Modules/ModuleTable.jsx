@@ -7,7 +7,6 @@ import { ReactComponent as Trash } from "../../../assets/images/trash.svg";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Util } from "../../../services/Util";
-import { SelectColumnFilter } from "../../render-components/TableFilters";
 
 function ModuleTable({ modules, removeModule }) {
     const columns = React.useMemo(
@@ -17,15 +16,25 @@ function ModuleTable({ modules, removeModule }) {
                 accessor: "title",
             },
             {
-                Header: "Classes linked",
-                accessor: ({ groups }) => groups.map((group) => Util.groupToStr(group)),
+                Header: "Class",
+                accessor: "groups",
                 Cell: ({ value }) => (
                     <div>
-                        {value.map((group, i) => (
-                            <tr key={"row" + i}>
-                                <td key={"td" + i}>{group}</td>
-                            </tr>
-                        ))}
+                        {value
+                            ?.slice()
+                            .sort((a, b) => b.title.localeCompare(a.title))
+                            .map((group, i) => (
+                                <tr key={"row" + i}>
+                                    <td
+                                        key={"td" + i}
+                                        className={`badge rounded-pill ${
+                                            group.state ? "text-bg-success" : "text-bg-danger"
+                                        }`}
+                                    >
+                                        {group.title}
+                                    </td>
+                                </tr>
+                            ))}
                     </div>
                 ),
             },

@@ -2,11 +2,9 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
-import { getClass } from "../../../services/api/classes";
-
 import { Util } from "../../../services/Util";
 import { FormCheck, FormControl, FormSelect } from "../../render-components/Form";
-import { getModules } from "../../../services/api";
+import { getModules, getClass } from "../../../services/api";
 import Loader from "../../render-components/Loader";
 
 function ClassForm({ title, handleSubmitClass }) {
@@ -17,8 +15,8 @@ function ClassForm({ title, handleSubmitClass }) {
         level: null,
         name: null,
         year: null,
-        isActive: true,
         modules: [],
+        isActive: true,
     });
 
     useEffect(() => {
@@ -29,6 +27,7 @@ function ClassForm({ title, handleSubmitClass }) {
     const fetchClass = async () => {
         let group = await getClass(id);
         group.referent = group.referent?.id;
+        group.modules = group.modules.map(({ id }) => id);
         setGroupData(group);
     };
     const fetchModules = async () => {
@@ -105,9 +104,11 @@ function ClassForm({ title, handleSubmitClass }) {
                         })
                     }
                 />
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <Button variant="btn btn-outline-success me-md-2" type="submit">
+                        Submit
+                    </Button>
+                </div>
             </Form>
         </Fragment>
     );

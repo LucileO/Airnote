@@ -11,7 +11,7 @@ import GLOBALS from "../../../Globals";
 import { SelectColumnFilter } from "../../render-components/TableFilters";
 import { Util } from "../../../services/Util";
 
-function ClassesTable({ groups, removeClass, userId }) {
+function ClassesTable({ groups, removeClass, userId, darkmode }) {
     const [active, setActive] = useState(false);
     const handleClick = () => {
         setActive(!active);
@@ -33,7 +33,7 @@ function ClassesTable({ groups, removeClass, userId }) {
                 accessor: "name",
                 Cell: ({ row, value }) => (
                     <Link to={"/classes/" + row.original.id}>
-                        <Button variant="info">{value}</Button>
+                        <button className={"btn btn-outline-secondary"}>{value}</button>
                     </Link>
                 ),
             },
@@ -93,7 +93,7 @@ function ClassesTable({ groups, removeClass, userId }) {
     return (
         <>
             <button onClick={handleClick}>{active ? "Hide modules" : "Show modules"}</button>
-            <ReactTable data={groups} columns={columns} />;
+            <ReactTable data={groups} columns={columns} />
         </>
     );
 }

@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-qmawmavk=&q&c&u)e91cimab=n0%%(y@ypl6gdc9+vhchjp^hc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-    #www.airnote.com, keycloak ?
+ALLOWED_HOSTS = ["10.20.30.3", "10.128.4.2"]
 
 # Application definition
 
@@ -89,37 +88,19 @@ AUTHENTICATION_BACKENDS = [
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+# postgre db
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'backendDB', 
+        'USER': 'backend', 
+        'PASSWORD': 'pa$$word',
+        'HOST': 'db', 
+        'PORT': '5432',
     }
 }
-# add postgre db
-
-#DATABASES = {
-#    "default": {
-#       "ENGINE": "django.db.backends.postgresql",
-#        "OPTIONS": {
-#            "service": "my_service",
-#            "passfile": ".my_pgpass",
-#        },
-#    }
-#}
-
-#OR
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'usersDB', 
-#        'USER': 'sammy', 
-#        'PASSWORD': 'pa$$word',
-#        'HOST': '127.0.0.1', 
-#        'PORT': '5432',
-#    }
-#}
-
+#DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -169,8 +150,6 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
         'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
         # Any other renders
     ),
 
@@ -191,11 +170,11 @@ REST_FRAMEWORK = {
 
 
 # CORS settings
+#CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     FRONT_URL,
 )
-
 
 
 # Keycloak settings

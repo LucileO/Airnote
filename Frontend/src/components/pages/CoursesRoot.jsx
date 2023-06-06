@@ -64,8 +64,7 @@ function Courses({ userRole, userId }) {
         navigate("/courses");
     };
 
-    if (![GLOBALS.USER_ROLES.AD, GLOBALS.USER_ROLES.AR, GLOBALS.USER_ROLES.TE].includes(userRole))
-        return <Error />;
+    if (![GLOBALS.USER_ROLES.AD, GLOBALS.USER_ROLES.AR].includes(userRole)) return <Error />;
     return (
         <Fragment>
             <Routes>

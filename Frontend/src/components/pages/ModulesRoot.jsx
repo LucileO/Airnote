@@ -15,7 +15,6 @@ function Modules({ userRole }) {
     const navigate = useNavigate();
     const [modules, setModules] = useState([]);
     const [groups, setGroups] = useState([]);
-
     useEffect(() => {
         fetchModules();
         fetchGroups();
@@ -28,18 +27,8 @@ function Modules({ userRole }) {
         let modules = await getModules();
         setModules(modules);
     };
-    // Perform join operation to match module's ID with group information
-    const data = modules.map((module) => {
-        const moduleGroups = groups.filter((group) => {
-            const groupsModulesIds = group.modules.map((module) => module.id);
-            return groupsModulesIds.includes(module.id);
-        });
-
-        const groupsNames = moduleGroups.map((group) => Util.groupToStr(group));
-        return { ...module, groups: groupsNames };
-    });
     const addModules = async (module) => {
-        createModule(module.title, module.groups, module.courses)
+        createModule(module.title, module.courses)
             .then(() => {
                 toastSuccess("Module successfully created");
                 redirectToTable();
@@ -49,6 +38,20 @@ function Modules({ userRole }) {
             });
     };
 
+    // Perform join operation to match module's ID with group information (Name and state)
+    const data = modules.map((module) => {
+        const moduleGroups = groups.filter((group) => {
+            const groupModuleIds = group.modules.map((module) => module.id);
+            return groupModuleIds.includes(module.id);
+        });
+        const groupsinfo = moduleGroups.map((group) => {
+            const groupState = group.isActive;
+            const groupString = Util.groupToStr(group);
+            return { state: groupState, title: groupString };
+        });
+        return { ...module, groups: groupsinfo };
+    });
+
     const removeModule = async (courseId) => {
         deleteModule(courseId).then(() => {
             toastSuccess("Module successfully deleted");
@@ -57,7 +60,7 @@ function Modules({ userRole }) {
     };
 
     const modifyModules = async (module, moduleId) => {
-        editModule(moduleId, module.title, module.groups, module.courses).then(() => {
+        editModule(moduleId, module.title, module.courses).then(() => {
             toastSuccess("Successfully edited");
             redirectToTable();
         });

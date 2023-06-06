@@ -71,7 +71,7 @@ function ClassView({ isAdmin, userId }) {
             </div>
             {isAdmin ? (
                 <div className="mb-3">
-                    <Link to="adduser">
+                    <Link to="manageclass">
                         <Button variant="success">Manage class</Button>
                     </Link>
                 </div>

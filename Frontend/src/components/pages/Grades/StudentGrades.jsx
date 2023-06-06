@@ -64,55 +64,41 @@ function StudentGrades({ userId, userRole }) {
     };
 
     const getTables = () => {
-        return group.modules.map((module, i) => {
-            let gradesData = module.courses.map((course) => {
-                let courseGrade = grades.find(
-                    (grade) => grade.course.id === course.id && grade.group.id === group.id,
-                ) ?? { number: null, comment: null };
-                return {
-                    ...course,
-                    number: courseGrade.number,
-                    comment: courseGrade.comment,
-                };
-            });
-            return (
-                <>
-                    {isAdmin ? (
-                        <Link to={`/classes/${group.id}`}>
-                            <Button variant="info">Return</Button>
-                        </Link>
-                    ) : null}
-                    <div className="text-center">
-                        <h1>{Util.formatUserName(user)}</h1>
-                        <h6>
-                            <i>{Util.groupToStr(group)}</i>
-                        </h6>
-                    </div>
-                    <br />
-                    <br />
-                    <div className="">
-                        <h5>General comment :</h5>
-                        {isAdmin ? (
-                            <Form.Control
-                                as="textarea"
-                                defaultValue={comment?.comment}
-                                onBlur={handleSubmit}
-                            />
-                        ) : (
-                            <p>{grades.comment}</p>
-                        )}
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <div key={i} className="mb-2 student">
-                        <h2>Module: {module.title}</h2>
-                        <StudentTable grades={gradesData} />
-                    </div>
-                </>
-            );
-        });
+        return (
+            <>
+                {isAdmin ? (
+                    <Link to={`/classes/${group.id}`}>
+                        <Button variant="info">Return</Button>
+                    </Link>
+                ) : null}
+                <div className="text-center">
+                    <h1>{Util.formatUserName(user)}</h1>
+                    <h6>
+                        <i>{Util.groupToStr(group)}</i>
+                    </h6>
+                </div>
+                <br />
+                <br />
+                {group.modules.map((module, i) => {
+                    let gradesData = module.courses.map((course) => {
+                        let courseGrade = grades.find(
+                            (grade) => grade.course.id === course.id && grade.group.id === group.id,
+                        ) ?? { number: null, comment: null };
+                        return {
+                            ...course,
+                            number: courseGrade.number,
+                            comment: courseGrade.comment,
+                        };
+                    });
+                    return (
+                        <div key={i} className="mb-2 student">
+                            <h2>Module: {module.title}</h2>
+                            <StudentTable grades={gradesData} />
+                        </div>
+                    );
+                })}
+            </>
+        );
     };
 
     if (!grades || !group) return <Loader />;

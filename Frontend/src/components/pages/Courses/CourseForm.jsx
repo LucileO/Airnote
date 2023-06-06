@@ -7,7 +7,7 @@ import Loader from "../../render-components/Loader";
 import { FormControl, FormSelect } from "../../render-components/Form";
 
 import { getUsersByRole } from "../../../services/api/users";
-import { getCourses } from "../../../services/api";
+import { getCourse } from "../../../services/api";
 import { Util } from "../../../services/Util";
 
 function CourseForm({ title, handleSubmitCourse }) {
@@ -26,7 +26,7 @@ function CourseForm({ title, handleSubmitCourse }) {
     }, [id]);
 
     const fetchCourse = async () => {
-        let course = await getCourses(id);
+        let course = await getCourse(id);
         course.leadTeacher = course.leadTeacher.id;
         course.otherTeachers = course.otherTeachers.map(({ id }) => id);
         setCourseData(course);
@@ -93,11 +93,12 @@ function CourseForm({ title, handleSubmitCourse }) {
                     isMulti
                     isClearable
                 />
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <Button variant="btn btn-outline-success me-md-2" type="submit">
+                        Submit
+                    </Button>
+                </div>
             </Form>
-            <pre>{JSON.stringify(courseData, null, 2)}</pre>
         </Fragment>
     );
 }
