@@ -61,7 +61,6 @@ function Administration({ groups, fetchGroups, isAdmin, userId, darkmode }) {
             group.level,
             group.name,
             group.year,
-            group.modules,
             group.referent,
             group.delegates,
             group.students,
